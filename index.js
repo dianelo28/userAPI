@@ -38,6 +38,7 @@ app.get("/users",function(req,res){
 	res.json(users);
 })
 
+
 app.post("/users", function(req,res){
 	var newUser = req.body;
 	users.push(newUser);
@@ -57,7 +58,7 @@ app.put('/users/:id', function(req,res){
 	foundUser.username = req.body.username || foundUser.username;
 	foundUser.firstname = req.body.firstname || foundUser.firstname;
 	foundUser.lastname = req.body.lastname || foundUser.lastname;
-	foundUser.age = req.body.age || foundUser.age;
+	foundUser.age = parseInt(req.body.age) || foundUser.age;
 	res.json(foundUser);
 });
 
@@ -77,6 +78,14 @@ app.delete('/users/:id', function(req,res){
 		res.json(users);
 	};
 
+})
+
+app.get("/users/:id",function(req,res){
+	var targetId = parseInt(req.params.id);
+	console.log(targetId);
+	var foundUser = _.findWhere(users, {id: targetId})
+	console.log(foundUser);
+	res.json(foundUser);
 })
 
 
